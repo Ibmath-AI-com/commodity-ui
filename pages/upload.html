@@ -1,0 +1,378 @@
+<!-- FILE: ux-test/pages/upload.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commodity Pulse — Upload</title>
+
+<link rel="stylesheet" href="../styles/globals.css" />
+
+</head>
+
+<body>
+  <!-- ===== AppShell (static header + nav) ===== -->
+  <div class="tt-terminal">
+    <header class="tt-header">
+      <div class="tt-headerTop">
+        <div class="tt-brandSection">
+          <a href="./index.html" class="tt-logoContainer" aria-label="Home">
+            <div class="tt-brand">
+              <span class="tt-logoMark" aria-hidden="true">C</span>
+              <span class="tt-companyRest pl-1">ommodity Pulse</span>
+            </div>
+          </a>
+
+          <div class="tt-marketTicker">
+            <div class="tt-tickerItem">
+              <span class="tt-tickerLabel">ACTIVE</span>
+              <span class="tt-tickerValue tt-tickerUp">SULPHUR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-userSection">
+          <span class="tt-timeDisplay">FRI 30 JAN 2026 | 19:07:12 AEDT</span>
+          <button class="tt-iconBtn" type="button" title="Notifications">
+            <span class="tt-icon" aria-hidden="true">🔔</span>
+          </button>
+
+          <div class="tt-settingsWrap">
+            <button class="tt-iconBtn" type="button" title="User">
+              <span
+                aria-hidden="true"
+                style="width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;
+                       font-size:12px;font-weight:900;letter-spacing:.4px;color:#172b4d;background:#deebff;border:1px solid #b3d4ff;">
+                FS
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <nav class="tt-nav">
+        <a class="tt-navLink tt-navLinkActive" href="./home.html">HOME</a>
+        <a class="tt-navLink" href="./prediction.html">PREDICTION</a>
+        <a class="tt-navLink" href="./upload.html">UPLOAD</a>
+        <a class="tt-navLink" href="./report.html">REPORT</a>
+      </nav>
+    </header>
+
+    <!-- ===== Page content ===== -->
+    <main class="tt-main">
+      <div class="tt-pageTitle">Home</div>
+
+          <div class="workspace tt-home">
+        <!-- LEFT: sidebar controls -->
+        <aside class="control-sidebar">
+          <div class="module">
+            <div class="module-header">Upload Parameters</div>
+            <div class="module-content">
+
+              <div class="input-row">
+                <label class="input-label">Commodity</label>
+                <select class="tt-select">
+                  <option value="sulphur" selected>Sulphur</option>
+                  <option value="ethylene">Ethylene</option>
+                  <option value="pygas">Pygas</option>
+                  <option value="naphtha">Naphtha</option>
+                  <option value="urea">Urea</option>
+                </select>
+              </div>
+
+              <div class="input-row">
+                <label class="input-label">Document Type</label>
+                <div class="tt-help">market_report, weekly, outage, freight, tender, policy, prices</div>
+              </div>
+
+              <div class="input-row">
+                <label class="input-label">Workflow</label>
+                <div class="tt-help">
+                  Upload exactly two source files per commodity: <b>PDF report</b> + <b>prices sheet</b>.
+                </div>
+              </div>
+
+              <button type="button" class="toolbar-btn">
+                WHAT IS THIS PAGE?
+              </button>
+            </div>
+          </div>
+
+          <!-- Status message area (example) -->
+          <div style="margin-top:12px;font-size:13px;font-weight:700;color:#172b4d;display:none;">
+            Report generation triggered. Refreshing list...
+          </div>
+
+          <!-- Banner samples (toggle display) -->
+          <div
+            style="margin-top:12px;display:flex;align-items:center;gap:10px;border:1px solid #b7f0d0;background:#e3fcef;color:#006644;padding:12px 14px;border-radius:12px;font-weight:700;display:none;"
+          >
+            <span aria-hidden="true">✅</span>
+            <span style="flex:1;">✓ Upload successful: Argus_Sulphur_ME_2026-01-29.pdf</span>
+          </div>
+
+          <div
+            style="margin-top:12px;display:flex;align-items:center;gap:10px;border:1px solid #ffbdad;background:#ffebe6;color:#de350b;padding:12px 14px;border-radius:12px;font-weight:700;display:none;"
+          >
+            <span aria-hidden="true">❌</span>
+            <span style="flex:1;">Upload failed (HTTP 500).</span>
+          </div>
+        </aside>
+
+        <!-- RIGHT: main content -->
+        <section class="main-panel">
+          <section class="panel-section">
+            <div class="section-header">
+              <h2 class="section-title">UPLOAD SOURCES</h2>
+              <div class="section-actions">
+                <button class="toolbar-btn" type="button">
+                  <span aria-hidden="true">⟳</span>
+                  REFRESH LIST
+                </button>
+              </div>
+            </div>
+
+            <div class="tt-section-subheader">
+              <p class="tt-section-subtitle">
+                Upload <b>two source files</b> per commodity — a <b>market report (PDF)</b> and a
+                <b> historical prices file (CSV/XLS/XLSX)</b>. The report is used to extract events and produce the written
+                summary, while the prices file calibrates the forecast with market history.
+              </p>
+            </div>
+
+           
+            <div class="tt-uploadTableWrap">
+              <table class="data-grid">
+                <thead>
+                  <tr>
+                    <th>File Name</th>
+                    <th>Type</th>
+                    <th>Generate</th>
+                    <th>Size</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <!-- ===================== REPORT (PDF) SECTION ===================== -->
+                  <tr>
+                    <td>
+                      <div class="tt-fileInfo">
+                        <div class="tt-fileIcon pdf">PDF</div>
+                        <div class="tt-fileDetails">
+                          <div class="tt-fileNameText">Argus_Sulphur_ME_2026-01-29.pdf</div>
+                          <div class="tt-fileMetaText">Report (PDF)</div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td><span class="tt-typeBadge">Market Report</span></td>
+
+                    <td>
+                      <!-- Example: NOT generated yet -->
+                      <button class="tt-btn tt-btnPrimary" type="button">Generate</button>
+
+                      <!-- Example: already generated (toggle) -->
+                      <!-- <span>Generated</span> -->
+                    </td>
+
+                    <td class="tt-sizeText">1.42 MB</td>
+                    <td class="tt-dateText">29 Jan 2026</td>
+
+                    <td class="tt-actionCell">
+                      <div class="tt-actionRow">
+                        <button type="button" class="toolbar-btn tt-btnDelete">
+                          🗑 Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="6" class="tt-sectionDivider"></td>
+                  </tr>
+
+                  <!-- Example: No report uploaded row (toggle display) -->
+                  <tr style="display:none;">
+                    <td>
+                      <div class="tt-fileInfo">
+                        <div class="tt-fileIcon pdf">PDF</div>
+                        <div class="tt-fileDetails">
+                          <div class="tt-fileNameText">No report uploaded</div>
+                          <div class="tt-fileMetaText">Report (PDF)</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="tt-typeBadge">Market Report</span></td>
+                    <td>—</td>
+                    <td class="tt-sizeText">—</td>
+                    <td class="tt-dateText">—</td>
+                    <td class="tt-actionCell">
+                      <div class="tt-actionRow">
+                        <button type="button" class="tt-btn tt-btnSecondary">Select report</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- ===================== PRICES (EXCEL/CSV) SECTION ===================== -->
+                  <tr>
+                    <td>
+                      <div class="tt-fileInfo">
+                        <div class="tt-fileIcon excel">XLS</div>
+                        <div class="tt-fileDetails">
+                          <div class="tt-fileNameText">Sulphur_Prices_2019-2026.xlsx</div>
+                          <div class="tt-fileMetaText">Prices (Excel / CSV)</div>
+                        </div>
+                      </div>
+                    </td>
+
+                    <td><span class="tt-typeBadge">Price Data</span></td>
+
+                    <td>
+                      <!-- Example: already generated -->
+                      <span>Generated</span>
+
+                      <!-- Example: not generated (toggle) -->
+                      <!-- <button class="tt-btn tt-btnPrimary" type="button">Generate</button> -->
+                    </td>
+
+                    <td class="tt-sizeText">312.4 KB</td>
+                    <td class="tt-dateText">28 Jan 2026</td>
+
+                    <td class="tt-actionCell">
+                      <div class="tt-actionRow">
+                        <button type="button" class="toolbar-btn tt-btnDelete">
+                          🗑 Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Example: No prices uploaded row (toggle display) -->
+                  <tr style="display:none;">
+                    <td>
+                      <div class="tt-fileInfo">
+                        <div class="tt-fileIcon excel">XLS</div>
+                        <div class="tt-fileDetails">
+                          <div class="tt-fileNameText">No prices uploaded</div>
+                          <div class="tt-fileMetaText">Prices (Excel / CSV)</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td><span class="tt-typeBadge">Price Data</span></td>
+                    <td>—</td>
+                    <td class="tt-sizeText">—</td>
+                    <td class="tt-dateText">—</td>
+                    <td class="tt-actionCell">
+                      <div class="tt-actionRow">
+                        <button type="button" class="tt-btn tt-btnSecondary">Select Prices file</button>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- Delete modal (hidden by default) -->
+        <div class="fixed inset-0 z-[13000]" id="deleteModal" style="display:none;">
+          <div class="absolute inset-0" style="background:rgba(9,30,66,0.35);" aria-hidden="true"></div>
+
+          <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div style="width:100%;max-width:520px;background:#fff;border:1px solid #dfe1e6;">
+              <div style="padding:14px 16px;background:#e9ecef;border-bottom:1px solid #dfe1e6;">
+                <div style="font-weight:800;font-size:14px;letter-spacing:0.3;">DELETE FILE</div>
+                <div style="margin-top:4px;font-size:12px;color:#5e6c84;">This action can’t be undone.</div>
+              </div>
+
+              <div style="padding:16px;font-size:13px;color:#172b4d;">
+                You’re about to delete: <b>Argus_Sulphur_ME_2026-01-29.pdf</b>
+                <div style="margin-top:8px;color:#7a869a;">
+                  This will also delete the generated output linked to this file.
+                </div>
+              </div>
+
+              <div style="display:flex;justify-content:flex-end;gap:8px;padding:12px;background:#f8f9fa;border-top:1px solid #dfe1e6;">
+                <button class="toolbar-btn" type="button">CANCEL</button>
+                <button class="tt-btn tt-btnDelete" type="button">DELETE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intro modal (hidden by default) -->
+        <div class="fixed inset-0 z-[12000]" id="introModal" style="display:none;">
+          <div class="absolute inset-0" style="background:rgba(9,30,66,0.35);" aria-hidden="true"></div>
+
+          <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div style="width:100%;max-width:720px;background:#fff;border:1px solid #dfe1e6;">
+              <div style="padding:14px 16px;background:#e9ecef;border-bottom:1px solid #dfe1e6;">
+                <div style="font-weight:800;font-size:14px;letter-spacing:0.3;">UPLOAD SOURCES FOR THE FORECAST</div>
+                <div style="margin-top:4px;font-size:12px;color:#5e6c84;">
+                  Two files power the analysis and improve the language quality of the report.
+                </div>
+              </div>
+
+              <div style="padding:16px;font-size:13px;color:#172b4d;line-height:1.6;">
+                <p>
+                  Upload <b>two source files</b> for each commodity: a <b>market report (PDF)</b> and a
+                  <b> historical prices file (CSV/XLS/XLSX)</b>.
+                </p>
+                <p style="margin-top:10px;color:#5e6c84;">
+                  The report is used to extract events and produce a clear written summary. The prices file calibrates
+                  the forecast with real market history.
+                </p>
+              </div>
+
+              <div style="display:flex;justify-content:flex-end;gap:8px;padding:12px;background:#f8f9fa;border-top:1px solid #dfe1e6;">
+                <button class="toolbar-btn" type="button">GOT IT</button>
+                <button class="toolbar-btn" type="button" style="border-color:#0052cc;color:#0052cc;">
+                  START UPLOADING
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="tt-footer">
+      © 2026 Commodity Pulse | Market data delayed by 15 minutes | For professional use only
+    </footer>
+  </div>
+
+  <script>
+  (function () {
+    const links = document.querySelectorAll(".tt-nav .tt-navLink");
+    if (!links.length) return;
+
+    // current file name: "prediction.html" etc.
+    const current = (location.pathname.split("/").pop() || "").toLowerCase();
+
+    // normalize: if user opens folder "/" treat as home.html (optional)
+    const currentKey = current === "" ? "home.html" : current;
+
+    links.forEach((a) => {
+      const href = (a.getAttribute("href") || "").toLowerCase();
+      const hrefKey = href.split("/").pop();
+
+      const isActive =
+        hrefKey === currentKey ||
+        // optional: allow index.html to highlight HOME
+        (currentKey === "index.html" && (hrefKey === "home.html" || hrefKey === "index.html"));
+
+      a.classList.toggle("tt-navLinkActive", isActive);
+      a.setAttribute("aria-current", isActive ? "page" : "false");
+    });
+  })();
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!-- FILE: ux-test/pages/reports.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commodity Pulse — Reports</title>
+<link rel="stylesheet" href="../styles/globals.css" />
+
+</head>
+
+<body>
+  <!-- ===== AppShell (static header + nav) ===== -->
+  <div class="tt-terminal">
+    <header class="tt-header">
+      <div class="tt-headerTop">
+        <div class="tt-brandSection">
+          <a href="./index.html" class="tt-logoContainer" aria-label="Home">
+            <div class="tt-brand">
+              <span class="tt-logoMark" aria-hidden="true">C</span>
+              <span class="tt-companyRest pl-1">ommodity Pulse</span>
+            </div>
+          </a>
+
+          <div class="tt-marketTicker">
+            <div class="tt-tickerItem">
+              <span class="tt-tickerLabel">ACTIVE</span>
+              <span class="tt-tickerValue tt-tickerUp">SULPHUR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-userSection">
+          <span class="tt-timeDisplay">FRI 30 JAN 2026 | 19:07:12 AEDT</span>
+          <button class="tt-iconBtn" type="button" title="Notifications">
+            <span class="tt-icon" aria-hidden="true">🔔</span>
+          </button>
+
+          <div class="tt-settingsWrap">
+            <button class="tt-iconBtn" type="button" title="User">
+              <span
+                aria-hidden="true"
+                style="width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;
+                       font-size:12px;font-weight:900;letter-spacing:.4px;color:#172b4d;background:#deebff;border:1px solid #b3d4ff;">
+                FS
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <nav class="tt-nav">
+        <a class="tt-navLink tt-navLinkActive" href="./home.html">HOME</a>
+        <a class="tt-navLink" href="./prediction.html">PREDICTION</a>
+        <a class="tt-navLink" href="./upload.html">UPLOAD</a>
+        <a class="tt-navLink" href="./report.html">REPORT</a>
+      </nav>
+    </header>
+
+    <!-- ===== Page content ===== -->
+    <main class="tt-main">
+      <div class="tt-pageTitle">Home</div>
+
+       <div class="workspace tt-home">
+        <!-- LEFT: Filters sidebar -->
+        <aside class="control-sidebar">
+          <div class="module">
+            <div class="module-header">Filters</div>
+
+            <div class="module-content">
+              <div class="input-row">
+                <label class="input-label">Commodity</label>
+                <input class="tt-input" type="text" placeholder="sulphur" value="" />
+              </div>
+
+              <div class="input-row">
+                <label class="input-label">Status</label>
+                <select class="tt-select">
+                  <option value="all" selected>All</option>
+                  <option value="active">Active (incoming)</option>
+                  <option value="inactive">Inactive (archive)</option>
+                </select>
+              </div>
+
+              <div class="input-row">
+                <label class="input-label">From Date</label>
+                <input class="tt-input" type="date" value="" />
+              </div>
+
+              <!-- Error state sample -->
+              <div style="margin-top:10px;color:#de350b;font-weight:700;font-size:13px;display:none;">
+                Failed to load
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- RIGHT: Main panel -->
+        <section class="main-panel">
+          <section class="panel-section">
+            <div class="section-header">
+              <h2 class="section-title">REPORT FILES</h2>
+
+              <div class="section-actions">
+                <button class="toolbar-btn" type="button">
+                  <span aria-hidden="true">⟳</span>
+                  Refresh
+                </button>
+              </div>
+            </div>
+
+            <div class="tt-uploadTableWrap">
+              <table class="data-grid">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Commodity</th>
+                    <th>File</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <!-- Row 1 (ACTIVE, has clean) -->
+                  <tr style="cursor:pointer;">
+                    <td>29 Jan 2026</td>
+                    <td>Sulphur</td>
+                    <td>Argus_Sulphur_ME_2026-01-29.pdf</td>
+                    <td>
+                      <span class="status-label status-optimal">ACTIVE</span>
+                    </td>
+                    <td>
+                      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="toolbar-btn" type="button" title="Download from incoming/">
+                          ⬇ Download
+                        </button>
+
+                        <button class="toolbar-btn" type="button" style="border-color:#0052cc;color:#0052cc;">
+                          📄 Generated Report
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2 (INACTIVE, has clean) -->
+                  <tr style="cursor:pointer;">
+                    <td>24 Jan 2026</td>
+                    <td>Sulphur</td>
+                    <td>Weekly_Sulphur_Archive_2026-01-24.pdf</td>
+                    <td>
+                      <span class="status-label status-warning">INACTIVE</span>
+                    </td>
+                    <td>
+                      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="toolbar-btn" type="button" title="Download from archive/">
+                          ⬇ Download
+                        </button>
+
+                        <button class="toolbar-btn" type="button" style="border-color:#0052cc;color:#0052cc;">
+                          📄 Generated Report
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3 (ACTIVE, no clean report) -->
+                  <tr style="cursor:pointer;">
+                    <td>22 Jan 2026</td>
+                    <td>Urea</td>
+                    <td>Urea_Daily_2026-01-22.xlsx</td>
+                    <td>
+                      <span class="status-label status-optimal">ACTIVE</span>
+                    </td>
+                    <td>
+                      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="toolbar-btn" type="button" title="Download from incoming/">
+                          ⬇ Download
+                        </button>
+
+                        <!-- No generated report button when hasClean=false -->
+                        <span class="small-muted" style="font-size:12px;color:#7a869a;align-self:center;">
+                          No generated report
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Empty state (hidden) -->
+                  <tr style="display:none;">
+                    <td colspan="5" style="padding:1.25rem;color:#7a869a;">
+                      No reports match your filters.
+                    </td>
+                  </tr>
+
+                  <!-- Loading state (hidden) -->
+                  <tr style="display:none;">
+                    <td colspan="5" style="padding:1.25rem;color:#7a869a;">
+                      Loading...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Viewer popup (template-styled) — hidden by default -->
+          <div class="fixed inset-0 z-[13000]" id="reportViewerModal" style="display:none;">
+            <div class="absolute inset-0" style="background:rgba(9,30,66,0.35);" aria-hidden="true"></div>
+
+            <div class="absolute inset-0 flex items-center justify-center p-4">
+              <div style="width:100%;max-width:980px;background:#fff;border:1px solid #dfe1e6;">
+                <div style="padding:14px 16px;background:#e9ecef;border-bottom:1px solid #dfe1e6;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                    <div>
+                      <div style="font-weight:900;letter-spacing:0.3;">GENERATED REPORT</div>
+                      <div style="margin-top:2px;font-size:12px;color:#42526e;">
+                        Argus_Sulphur_ME_2026-01-29.pdf
+                      </div>
+                    </div>
+
+                    <button class="toolbar-btn" type="button" title="Close">
+                      ✕ Close
+                    </button>
+                  </div>
+                </div>
+
+                <div style="padding:12px;">
+                  <!-- Error state sample (hidden) -->
+                  <div style="padding:12px;border:1px solid #dfe1e6;background:#ffebe6;color:#de350b;font-weight:700;display:none;">
+                    Failed to load generated report
+                  </div>
+
+                  <!-- Loading state sample (hidden) -->
+                  <div style="padding:12px;color:#7a869a;display:none;">
+                    Loading…
+                  </div>
+
+                  <!-- Viewer (static iframe placeholder) -->
+                  <iframe
+                    title="Report viewer"
+                    src="about:blank"
+                    class="h-[72vh] w-full"
+                    style="border:1px solid #dfe1e6;"
+                  ></iframe>
+
+                  <div style="margin-top:10px;font-size:12px;color:#7a869a;">
+                    Viewer placeholder. In the real app, this iframe loads <span class="mono">/report/view?objectName=clean/...</span>
+                  </div>
+                </div>
+
+                <div style="padding:12px;background:#f8f9fa;border-top:1px solid #dfe1e6;display:flex;justify-content:flex-end;">
+                  <button class="toolbar-btn" type="button">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+    </div>
+
+    </main>
+
+    <footer class="tt-footer">
+      © 2026 Commodity Pulse | Market data delayed by 15 minutes | For professional use only
+    </footer>
+  </div>
+</body>
+
+</html>

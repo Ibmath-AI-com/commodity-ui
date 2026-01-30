@@ -1,0 +1,537 @@
+<!-- FILE: ux-test/pages/prediction.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commodity Pulse — Prediction</title>
+
+<link rel="stylesheet" href="../styles/globals.css" />
+
+</head>
+<body>
+  <!-- ===== AppShell (static header + nav) ===== -->
+  <div class="tt-terminal">
+    <header class="tt-header">
+      <div class="tt-headerTop">
+        <div class="tt-brandSection">
+          <a href="./index.html" class="tt-logoContainer" aria-label="Home">
+            <div class="tt-brand">
+              <span class="tt-logoMark" aria-hidden="true">C</span>
+              <span class="tt-companyRest pl-1">ommodity Pulse</span>
+            </div>
+          </a>
+
+          <div class="tt-marketTicker">
+            <div class="tt-tickerItem">
+              <span class="tt-tickerLabel">ACTIVE</span>
+              <span class="tt-tickerValue tt-tickerUp">SULPHUR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tt-userSection">
+          <span class="tt-timeDisplay">FRI 30 JAN 2026 | 19:07:12 AEDT</span>
+          <button class="tt-iconBtn" type="button" title="Notifications">
+            <span class="tt-icon" aria-hidden="true">🔔</span>
+          </button>
+
+          <div class="tt-settingsWrap">
+            <button class="tt-iconBtn" type="button" title="User">
+              <span
+                aria-hidden="true"
+                style="width:28px;height:28px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;
+                       font-size:12px;font-weight:900;letter-spacing:.4px;color:#172b4d;background:#deebff;border:1px solid #b3d4ff;">
+                FS
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <nav class="tt-nav">
+        <a class="tt-navLink tt-navLinkActive" href="./home.html">HOME</a>
+        <a class="tt-navLink" href="./prediction.html">PREDICTION</a>
+        <a class="tt-navLink" href="./upload.html">UPLOAD</a>
+        <a class="tt-navLink" href="./report.html">REPORT</a>
+      </nav>
+    </header>
+
+    <!-- ===== Page content ===== -->
+    <main class="tt-main">
+      <div class="tt-pageTitle">Home</div>
+
+          <div class="workspace tt-home">
+
+        <!-- LEFT: Control sidebar -->
+        <aside class="control-sidebar">
+          <div class="module">
+            <div class="module-header">Forecast Parameters</div>
+
+            <div class="module-content">
+              <div class="input-row">
+                <label class="input-label">Commodity</label>
+                <select class="tt-select">
+                  <option value="sulphur" selected>Sulphur</option>
+                  <option value="ethylene">Ethylene</option>
+                  <option value="pygas">Pygas</option>
+                  <option value="naphtha">Naphtha</option>
+                  <option value="urea">Urea</option>
+                </select>
+              </div>
+
+              <div class="input-row">
+                <label class="input-label">Future Date</label>
+                <input class="tt-input" type="date" value="2026-02-05" />
+              </div>
+
+              <div class="input-row">
+                <label class="input-label">Base Price (USD)</label>
+
+                <!-- Selected bases (max 2) -->
+                <div style="display:grid;gap:8px;">
+                  <input class="tt-input" inputmode="decimal" placeholder="Middle East" value="525" />
+                  <input class="tt-input" inputmode="decimal" placeholder="Mediterranean" value="518" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-header">Basis Selection</div>
+
+            <div class="module-content">
+              <div class="basis-options">
+                <label class="basis-checkbox">
+                  <input type="checkbox" />
+                  <span>Vancouver</span>
+                </label>
+
+                <label class="basis-checkbox">
+                  <input type="checkbox" checked />
+                  <span>Middle East</span>
+                </label>
+
+                <label class="basis-checkbox">
+                  <input type="checkbox" />
+                  <span>Iran</span>
+                </label>
+
+                <label class="basis-checkbox">
+                  <input type="checkbox" />
+                  <span>Black Sea</span>
+                </label>
+
+                <label class="basis-checkbox">
+                  <input type="checkbox" />
+                  <span>Baltic Sea</span>
+                </label>
+
+                <label class="basis-checkbox">
+                  <input type="checkbox" />
+                  <span>US Gulf</span>
+                </label>
+
+                <label class="basis-checkbox">
+                  <input type="checkbox" checked />
+                  <span>Mediterranean</span>
+                </label>
+              </div>
+
+              <div class="active-basis">
+                ● ACTIVE: MIDDLE EAST
+              </div>
+            </div>
+          </div>
+
+          <button class="action-button" type="button">
+            RUN FORECAST
+          </button>
+
+          <!-- Loading state sample -->
+          <button class="action-button" type="button" disabled style="display:none;">
+            RUNNING...
+          </button>
+
+          <!-- Error state sample -->
+          <div style="margin-top:12px;color:#de350b;font-size:13px;font-weight:700;display:none;">
+            API failed (500): Unknown error
+          </div>
+        </aside>
+
+        <!-- RIGHT: Main panel -->
+        <section class="main-panel">
+
+          <!-- Forecast Results -->
+          <section class="panel-section">
+            <div class="section-header">
+              <h2 class="section-title">FORECAST RESULTS</h2>
+
+              <div class="section-actions">
+                <button class="toolbar-btn" type="button">EXPORT</button>
+                <button class="toolbar-btn" type="button">PRINT</button>
+                <button class="toolbar-btn" type="button" disabled>SHARE</button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <!-- Predicted Price -->
+              <div class="stat-box">
+                <div class="stat-icon stat-icon-top" aria-hidden="true">💲</div>
+                <div class="stat-label">Predicted Price</div>
+                <div class="stat-value">486.0</div>
+                <div class="stat-meta">Action: BUY BID • USD/t • per ton</div>
+              </div>
+
+              <!-- Market Bias -->
+              <div class="stat-box">
+                <div class="stat-icon stat-icon-top" aria-hidden="true">📊</div>
+                <div class="stat-label">Market Bias</div>
+
+                <div class="stat-value stat-value-inline value-positive">
+                  <span>BULLISH</span>
+                  <span class="stat-arrow" aria-hidden="true">▲</span>
+                </div>
+
+                <div class="stat-meta">Sentiment score: 0.31</div>
+              </div>
+
+              <!-- Decision Confidence -->
+              <div class="stat-box">
+                <div class="stat-icon stat-icon-top" aria-hidden="true">⏱</div>
+                <div class="stat-label">Decision Confidence</div>
+                <div class="stat-value value-neutral">HIGH</div>
+                <div class="stat-meta">Signal alignment strength • 72%</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Analysis Details -->
+<!-- Analysis Details -->
+<section class="panel-section">
+  <div class="section-header">
+    <h2 class="section-title">ANALYSIS DETAILS</h2>
+  </div>
+
+  <div class="analysis-container">
+
+    <!-- Tabs -->
+    <div class="analysis-tabs">
+      <button class="analysis-tab" type="button" data-tab="drivers">DRIVERS</button>
+      <button class="analysis-tab" type="button" data-tab="risks">RISKS</button>
+      <button class="analysis-tab" type="button" data-tab="evidence">EVIDENCE</button>
+      <button class="analysis-tab active" type="button" data-tab="cali">CALI BID</button>
+    </div>
+
+    <!-- DRIVERS -->
+    <table class="data-grid" id="tab-drivers" style="display:none;">
+      <thead>
+        <tr>
+          <th style="width:22%;">FACTOR</th>
+          <th style="width:14%;">IMPACT</th>
+          <th style="width:14%;">CONFIDENCE</th>
+          <th>ANALYSIS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tender Action</td>
+          <td><span class="status-label status-optimal">UP</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>Unified signal across selected bases; overall momentum remains positive.</td>
+        </tr>
+        <tr>
+          <td>Short-term Sentiment</td>
+          <td><span class="status-label status-optimal">UP</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>Sentiment score supports a bullish bias with moderate agreement between signals.</td>
+        </tr>
+        <tr>
+          <td>Market Tightness</td>
+          <td><span class="status-label status-warning">MIXED</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>Supply news improves outlook, but near-term demand signals are uneven across regions.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- RISKS -->
+    <table class="data-grid" id="tab-risks" style="display:none;">
+      <thead>
+        <tr>
+          <th style="width:22%;">FACTOR</th>
+          <th style="width:14%;">IMPACT</th>
+          <th style="width:14%;">CONFIDENCE</th>
+          <th>ANALYSIS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Model Limits</td>
+          <td><span class="status-label status-warning">RISK</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>Risk output not explicitly returned by workflow; using a default risk pill.</td>
+        </tr>
+        <tr>
+          <td>Bid Rejection</td>
+          <td><span class="status-label status-warning">RISK</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>Higher bids improve win chance but can compress margin under volatile pricing.</td>
+        </tr>
+        <tr>
+          <td>Volatility</td>
+          <td><span class="status-label status-warning">RISK</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>Event-driven market; price can gap on supply updates and tender outcomes.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- EVIDENCE -->
+    <table class="data-grid" id="tab-evidence" style="display:none;">
+      <thead>
+        <tr>
+          <th style="width:22%;">FACTOR</th>
+          <th style="width:12%;">IMPACT</th>
+          <th style="width:14%;">CONFIDENCE</th>
+          <th>ANALYSIS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Immediate Reaction</td>
+          <td><span class="status-label status-optimal">UP</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>
+            Supply-side updates indicate tightening in key regions, supporting a firmer tone.
+            Tender activity remains active with competitive offers, reinforcing a mild bullish signal.
+          </td>
+        </tr>
+        <tr>
+          <td>Sentiment Rationale</td>
+          <td><span class="status-label status-warning">RISK</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>
+            Mixed directional inputs: some demand strength, but downside risk persists if supply normalizes quickly.
+            Net effect is a moderate bullish bias rather than high confidence.
+          </td>
+        </tr>
+        <tr>
+          <td>Top Market-moving Events</td>
+          <td><span class="status-label status-warning">RISK</span></td>
+          <td><span class="status-label status-info">MEDIUM</span></td>
+          <td>
+            Key supply restarts and tender outcomes remain the dominant drivers for near-term price direction.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- CALI BID TABLE (visible by default) -->
+    <table class="data-grid" id="tab-cali">
+      <thead>
+        <tr>
+          <th style="width:12%;">RANGE</th>
+          <th style="width:10%;">CHANCE</th>
+          <th style="width:12%;">RISK</th>
+          <th style="width:16%;">ASSESSMENT</th>
+          <th style="width:10%;">MARGIN</th>
+          <th>IMPLICATION</th>
+          <th style="width:70px;">EVIDENCE</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>&lt; 481</td>
+          <td>Low</td>
+          <td>Very Low</td>
+          <td><span class="status-label status-danger">NOT RECOMMENDED</span></td>
+          <td>+ &gt;15</td>
+          <td>Excellent margin but almost zero chance of acceptance.</td>
+          <td class="zero-padding" style="text-align:center;">⋯</td>
+        </tr>
+
+        <tr>
+          <td>481 – 491</td>
+          <td>Low–Medium</td>
+          <td>Low</td>
+          <td><span class="status-label status-warning">ATTRACTIVE MARGIN</span></td>
+          <td>+5 to +15</td>
+          <td>Strong profitability; still aggressive for tender standards.</td>
+          <td class="zero-padding" style="text-align:center;">⋯</td>
+        </tr>
+
+        <tr>
+          <td>491 – 501</td>
+          <td>Medium</td>
+          <td>Moderate-Low</td>
+          <td><span class="status-label status-optimal">OPTIMAL BALANCE</span></td>
+          <td>-5 to +5</td>
+          <td>Best mix of win probability + safety + margin.</td>
+          <td class="zero-padding" style="text-align:center;">⋯</td>
+        </tr>
+
+        <tr>
+          <td>501 – 511</td>
+          <td>Medium–High</td>
+          <td>Moderate</td>
+          <td><span class="status-label status-info">ACCEPTABLE</span></td>
+          <td>-15 to -5</td>
+          <td>Potentially profitable; cushion reduces as bid rises.</td>
+          <td class="zero-padding" style="text-align:center;">⋯</td>
+        </tr>
+
+        <tr>
+          <td>511 – 516</td>
+          <td>High</td>
+          <td>High</td>
+          <td><span class="status-label status-warning">RISKY</span></td>
+          <td>-20 to -15</td>
+          <td>Very high win probability; margins tighten significantly.</td>
+          <td class="zero-padding" style="text-align:center;">⋯</td>
+        </tr>
+
+        <tr>
+          <td>&gt; 516</td>
+          <td>Very High</td>
+          <td>Very High</td>
+          <td><span class="status-label status-danger">AVOID</span></td>
+          <td>&lt; -20</td>
+          <td>Award likely; downside risk dominates economics.</td>
+          <td class="zero-padding" style="text-align:center;">⋯</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+<script>
+  // Simple tabs: switch which table is shown
+  (function () {
+    const btns = document.querySelectorAll(".analysis-tab");
+    const map = {
+      drivers: document.getElementById("tab-drivers"),
+      risks: document.getElementById("tab-risks"),
+      evidence: document.getElementById("tab-evidence"),
+      cali: document.getElementById("tab-cali"),
+    };
+
+    function show(key) {
+      Object.keys(map).forEach((k) => {
+        map[k].style.display = (k === key) ? "" : "none";
+      });
+      btns.forEach((b) => b.classList.toggle("active", b.dataset.tab === key));
+    }
+
+    btns.forEach((b) => b.addEventListener("click", () => show(b.dataset.tab)));
+    show("cali"); // default like your screenshot
+  })();
+</script>
+
+
+        </section>
+
+        <!-- Evidence modal (hidden by default; show for UX styling) -->
+        <div class="fixed inset-0 z-[12000]" id="evidenceModal" style="display:none;">
+          <div class="absolute inset-0" style="background:rgba(9,30,66,0.35);" aria-hidden="true"></div>
+
+          <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div style="width:100%;max-width:980px;background:#fff;border:1px solid #dfe1e6;">
+              <div style="padding:14px 16px;background:#e9ecef;border-bottom:1px solid #dfe1e6;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                  <div style="min-width:0;">
+                    <div style="font-weight:900;letter-spacing:.3px;">EVIDENCE</div>
+                    <div style="margin-top:2px;font-size:12px;color:#42526e;">
+                      Cali bid range: <span style="font-weight:700;color:#172b4d;">520–535</span>
+                    </div>
+                    <div style="margin-top:2px;font-size:12px;color:#7a869a;">
+                      Showing 2 linked events
+                    </div>
+                  </div>
+
+                  <button class="toolbar-btn" type="button" title="Close">
+                    ✕ Close
+                  </button>
+                </div>
+              </div>
+
+              <div style="padding:12px;max-height:72vh;overflow-y:auto;">
+                <div style="display:flex;flex-direction:column;gap:10px;">
+
+                  <div style="border:1px solid #dfe1e6;background:#fff;padding:12px;">
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #22d499;background:#e8fff6;color:#00875a;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;">
+                        BULLISH
+                      </span>
+
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #dfe1e6;background:#f4f5f7;color:#42526e;font-size:11px;font-weight:700;">
+                        Importance 0.78
+                      </span>
+
+                      <span style="margin-left:auto;font-size:12px;color:#7a869a;">2026-01-29</span>
+                    </div>
+
+                    <div style="margin-top:8px;font-size:13px;font-weight:800;color:#172b4d;">
+                      Indonesia tender receives firm offers
+                    </div>
+
+                    <div style="margin-top:6px;font-size:12px;line-height:1.5;color:#42526e;white-space:pre-line;">
+                      Buyers showing strength; Middle East pricing remains firm.
+                    </div>
+
+                    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #dfe1e6;background:#f4f5f7;color:#42526e;font-size:11px;font-weight:700;">Indonesia</span>
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #dfe1e6;background:#f4f5f7;color:#42526e;font-size:11px;font-weight:700;">Middle East</span>
+                    </div>
+                  </div>
+
+                  <div style="border:1px solid #dfe1e6;background:#fff;padding:12px;">
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #ffbdad;background:#ffebe6;color:#de350b;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;">
+                        BEARISH
+                      </span>
+
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #dfe1e6;background:#f4f5f7;color:#42526e;font-size:11px;font-weight:700;">
+                        Importance 0.64
+                      </span>
+
+                      <span style="margin-left:auto;font-size:12px;color:#7a869a;">2026-01-26</span>
+                    </div>
+
+                    <div style="margin-top:8px;font-size:13px;font-weight:800;color:#172b4d;">
+                      Supply disruption impacts sulphur output
+                    </div>
+
+                    <div style="margin-top:6px;font-size:12px;line-height:1.5;color:#42526e;white-space:pre-line;">
+                      Temporary shutdown could tighten supply. Monitor restart stability.
+                    </div>
+
+                    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;">
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #dfe1e6;background:#f4f5f7;color:#42526e;font-size:11px;font-weight:700;">Kazakhstan</span>
+                      <span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:999px;border:1px solid #dfe1e6;background:#f4f5f7;color:#42526e;font-size:11px;font-weight:700;">Central Asia</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div style="padding:12px;background:#f8f9fa;border-top:1px solid #dfe1e6;display:flex;justify-content:flex-end;gap:8px;">
+                <button class="toolbar-btn" type="button">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    </main>
+
+    <footer class="tt-footer">
+      © 2026 Commodity Pulse | Market data delayed by 15 minutes | For professional use only
+    </footer>
+  </div>
+</body>
+
+</html>

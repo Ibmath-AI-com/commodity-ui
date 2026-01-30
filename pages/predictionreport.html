@@ -1,0 +1,357 @@
+<!-- FILE: ux-test/pages/prediction-print.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commodity Pulse — Forecast Report (Print)</title>
+
+<link rel="stylesheet" href="../styles/globals.css" />
+
+
+  <style>
+    /* Print CSS: clean + compact + word-like (no gradients) */
+    @page { size: A4; margin: 12mm; }
+
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    /* Word-like typography for content body */
+    .report-doc{
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #0f172a;
+    }
+
+    @media print{
+      [data-toolbar]{ display:none !important; }
+      html, body{ background:#fff !important; }
+    }
+
+    /* Minimal helpers (since we removed Tailwind runtime) */
+    .page-bg{ min-height:100vh; background:#F5F5F5; padding:24px; color:#0f172a; }
+    .wrap{ margin:0 auto; max-width:900px; }
+    .paper{ border:1px solid #e2e8f0; background:#fff; border-radius:12px; }
+    .paper-pad{ padding:28px 32px; }
+    .row{ display:flex; gap:24px; align-items:flex-start; justify-content:space-between; }
+    .rule{ margin-top:10px; border-top:1px solid #e2e8f0; }
+    .kpi-grid{ margin-top:12px; display:grid; gap:12px; grid-template-columns:1fr 1fr 1fr; }
+    .kpi-k{ font-size:10px; font-weight:600; color:#64748b; }
+    .kpi-v{ margin-top:2px; font-size:12px; font-weight:600; color:#0f172a; }
+    .section{ margin-top:16px; }
+    .section-title{ font-size:12px; font-weight:700; letter-spacing:.02em; color:#0f172a; }
+    .th{ border-bottom:1px solid #e2e8f0; background:#f8fafc; padding:8px 10px; text-align:left; font-size:11px; font-weight:600; color:#334155; }
+    .td{ border-bottom:1px solid #e2e8f0; padding:8px 10px; font-size:11px; color:#1f2937; vertical-align:top; }
+    .td-strong{ border-bottom:1px solid #e2e8f0; padding:8px 10px; font-size:11px; font-weight:600; color:#0f172a; vertical-align:top; }
+    .list{ margin-top:6px; padding-left:18px; font-size:11px; color:#1f2937; }
+    .small{ font-size:10px; color:#64748b; }
+    .center{ text-align:center; }
+    .right{ text-align:right; }
+    .muted{ color:#64748b; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace; }
+    .nowrap{ white-space:nowrap; }
+    .break{ white-space:normal; word-break:break-word; }
+    @media (max-width: 800px){
+      .kpi-grid{ grid-template-columns:1fr; }
+      .row{ flex-direction:column; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-bg">
+
+    <!-- Toolbar (screen only) -->
+    <div data-toolbar class="wrap" style="margin-bottom:12px; display:flex; align-items:center; justify-content:space-between;">
+      <div style="font-size:14px; font-weight:700;">Print Preview</div>
+      <div style="display:flex; gap:8px;">
+        <button class="toolbar-btn" type="button" onclick="window.print()">
+          🖨 Print
+        </button>
+        <button class="toolbar-btn" type="button" onclick="window.close()" title="Close">
+          ✕ Close
+        </button>
+      </div>
+    </div>
+
+    <!-- Paper -->
+    <div class="wrap">
+      <div class="paper">
+        <div class="paper-pad report-doc">
+
+          <!-- Header -->
+          <div class="row">
+            <div style="min-width:0;">
+              <div style="font-size:20px;font-weight:700;letter-spacing:-.01em;">Commodity Forecast Report</div>
+              <div style="margin-top:2px;font-size:11px;color:#475569;">
+                Tender decisioning, predicted pricing, and Cali Bid guidance.
+              </div>
+            </div>
+
+            <div style="min-width:300px;">
+              <div style="font-size:11px;color:#334155;">
+                <div style="display:flex;justify-content:space-between;gap:12px;">
+                  <span style="font-weight:600;">Generated</span>
+                  <span>30 Jan 2026, 06:22 PM</span>
+                </div>
+                <div style="margin-top:4px;display:flex;justify-content:space-between;gap:12px;">
+                  <span style="font-weight:600;">Status</span>
+                  <span>Done</span>
+                </div>
+                <div style="margin-top:4px;display:flex;justify-content:space-between;gap:12px;">
+                  <span style="font-weight:600;">Future date</span>
+                  <span>2026-02-05</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rule"></div>
+
+          <!-- KPIs -->
+          <div class="kpi-grid">
+            <div>
+              <div class="kpi-k">Commodity</div>
+              <div class="kpi-v">SULPHUR</div>
+            </div>
+            <div>
+              <div class="kpi-k">Basis</div>
+              <div class="kpi-v">Middle East, Mediterranean</div>
+            </div>
+            <div>
+              <div class="kpi-k">Risk level</div>
+              <div class="kpi-v">Medium</div>
+            </div>
+          </div>
+
+          <!-- Base prices used -->
+          <div class="section">
+            <div class="section-title">Base prices used (USD/t)</div>
+            <div class="rule"></div>
+
+            <div style="margin-top:8px; display:grid; gap:4px;">
+              <div style="display:flex;justify-content:space-between;font-size:11px;">
+                <span style="font-weight:600;">Middle East</span>
+                <span style="font-weight:600;">525</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;">
+                <span style="font-weight:600;">Mediterranean</span>
+                <span style="font-weight:600;">518</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MULTI-BASIS MODE (visible) -->
+          <div class="section" id="multiMode">
+            <div class="section-title">Market Result — Middle East</div>
+            <div class="rule"></div>
+
+            <!-- Summary -->
+            <div class="section" style="margin-top:12px;">
+              <div class="section-title">Summary</div>
+              <div class="rule"></div>
+
+              <table style="width:100%; border-collapse:collapse;">
+                <tbody>
+                  <tr>
+                    <th class="th" style="width:170px;">Tender action</th>
+                    <td class="td">BUY BID</td>
+                    <th class="th" style="width:170px;">Confidence</th>
+                    <td class="td">High</td>
+                  </tr>
+
+                  <tr>
+                    <th class="th">Predicted price</th>
+                    <td class="td-strong">486.0 USD/t</td>
+                    <th class="th">Signals</th>
+                    <td class="td">Trend: Bullish • Sentiment: 0.31</td>
+                  </tr>
+
+                  <tr>
+                    <th class="th">Rationale</th>
+                    <td class="td break" colspan="3">
+                      Supply disruption supports firm pricing; bid within optimal band to balance win probability and margin.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th class="th">Expected selling price</th>
+                    <td class="td">510–520</td>
+                    <th class="th">Spot prices</th>
+                    <td class="td">ME CFR 520–535</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Notes -->
+            <div class="section" style="margin-top:12px;">
+              <div class="section-title">Evidence notes</div>
+              <div class="rule"></div>
+
+              <ul class="list">
+                <li>Recent tender indications remain firm in Middle East.</li>
+                <li>Supply issues may tighten availability short-term.</li>
+                <li>Maintain bid discipline; avoid overbidding.</li>
+              </ul>
+            </div>
+
+            <!-- Cali Bid Table -->
+            <div class="section" style="margin-top:12px;">
+              <div class="section-title">Cali Bid Table</div>
+              <div class="rule"></div>
+
+              <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th class="th" style="width:110px;">Range</th>
+                    <th class="th" style="width:90px;">Chance</th>
+                    <th class="th" style="width:110px;">Margin risk</th>
+                    <th class="th" style="width:140px;">Assessment</th>
+                    <th class="th" style="width:120px;">Margin / ton</th>
+                    <th class="th">Implication</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="td">520–535</td>
+                    <td class="td">35%</td>
+                    <td class="td">Low</td>
+                    <td class="td-strong">Optimal</td>
+                    <td class="td-strong">$12/t</td>
+                    <td class="td break">Strong win probability with controlled downside.</td>
+                  </tr>
+                  <tr>
+                    <td class="td">536–550</td>
+                    <td class="td">42%</td>
+                    <td class="td">Low</td>
+                    <td class="td-strong">Recommended</td>
+                    <td class="td-strong">$8/t</td>
+                    <td class="td break">Safer acceptance band, margin reduced.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Second multi basis sample -->
+          <div class="section">
+            <div class="section-title">Market Result — Mediterranean</div>
+            <div class="rule"></div>
+
+            <div class="section" style="margin-top:12px;">
+              <div class="section-title">Summary</div>
+              <div class="rule"></div>
+
+              <table style="width:100%; border-collapse:collapse;">
+                <tbody>
+                  <tr>
+                    <th class="th" style="width:170px;">Tender action</th>
+                    <td class="td">PASS</td>
+                    <th class="th" style="width:170px;">Confidence</th>
+                    <td class="td">Medium</td>
+                  </tr>
+
+                  <tr>
+                    <th class="th">Predicted price</th>
+                    <td class="td-strong">482.0 USD/t</td>
+                    <th class="th">Signals</th>
+                    <td class="td">Trend: Neutral • Sentiment: 0.05</td>
+                  </tr>
+
+                  <tr>
+                    <th class="th">Rationale</th>
+                    <td class="td break" colspan="3">
+                      Limited confirmation; stay sidelined until demand-side clarity improves.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th class="th">Expected selling price</th>
+                    <td class="td">—</td>
+                    <th class="th">Spot prices</th>
+                    <td class="td">Med CFR 505–520</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section" style="margin-top:12px;">
+              <div class="section-title">Evidence notes</div>
+              <div class="rule"></div>
+              <div style="margin-top:8px;font-size:11px;">No supporting notes returned.</div>
+            </div>
+
+            <div class="section" style="margin-top:12px;">
+              <div class="section-title">Cali Bid Table</div>
+              <div class="rule"></div>
+
+              <table style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th class="th" style="width:110px;">Range</th>
+                    <th class="th" style="width:90px;">Chance</th>
+                    <th class="th" style="width:110px;">Margin risk</th>
+                    <th class="th" style="width:140px;">Assessment</th>
+                    <th class="th" style="width:120px;">Margin / ton</th>
+                    <th class="th">Implication</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="td" colspan="6">No Cali Bid table returned.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- LEGACY SINGLE-BASIS MODE (hidden sample) -->
+          <div class="section" id="singleMode" style="display:none;">
+            <div class="section-title">Summary</div>
+            <div class="rule"></div>
+
+            <table style="width:100%; border-collapse:collapse;">
+              <tbody>
+                <tr>
+                  <th class="th" style="width:170px;">Tender action</th>
+                  <td class="td">BUY BID</td>
+                  <th class="th" style="width:170px;">Confidence</th>
+                  <td class="td">High</td>
+                </tr>
+
+                <tr>
+                  <th class="th">Predicted price</th>
+                  <td class="td-strong">486.0 USD/t</td>
+                  <th class="th">Signals</th>
+                  <td class="td">Trend: Bullish • Sentiment: 0.31</td>
+                </tr>
+
+                <tr>
+                  <th class="th">Rationale</th>
+                  <td class="td break" colspan="3">
+                    Example legacy rationale text.
+                  </td>
+                </tr>
+
+                <tr>
+                  <th class="th">Expected selling price</th>
+                  <td class="td">510–520</td>
+                  <th class="th">Spot prices</th>
+                  <td class="td">ME CFR 520–535</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section center small" style="margin-top:18px; border-top:1px solid #e2e8f0; padding-top:8px;">
+            Confidential · For internal use only
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

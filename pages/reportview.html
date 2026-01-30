@@ -1,0 +1,271 @@
+<!-- FILE: ux-test/pages/report-view.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Commodity Pulse — Report Viewer</title>
+
+<link rel="stylesheet" href="../styles/globals.css" />
+
+
+  <!-- Print + word-like typography (copied from your page, Tailwind removed) -->
+  <style>
+    @page { size: A4; margin: 16mm; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    @media print {
+      [data-print-hide] { display: none !important; }
+      html, body { background: white !important; }
+    }
+
+    /* Basic layout helpers (since Tailwind isn't present) */
+    .min-h-screen { min-height: 100vh; }
+    .bg-slate-100 { background: #f1f5f9; }
+    .paper-wrap { max-width: 1024px; margin: 0 auto; padding: 40px 24px; }
+    .paper { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 1px 2px rgba(15,23,42,.06); }
+    .paper-pad { padding: 40px; }
+    .alert-err { margin-bottom: 16px; border: 1px solid #fecdd3; background: #fff1f2; color: #9f1239; padding: 12px 14px; border-radius: 12px; font-size: 14px; }
+
+    .sticky-topbar {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid #e2e8f0;
+      background: rgba(255,255,255,.90);
+      backdrop-filter: blur(10px);
+    }
+    .topbar-inner {
+      max-width: 1024px; margin: 0 auto;
+      padding: 12px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 740px; }
+    .topbar-title { font-size: 14px; font-weight: 700; color: #0f172a; }
+    .topbar-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+    /* Word-like text defaults inside the paper */
+    .word-doc {
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      color: #0f172a;
+      font-size: 13.5px;
+      line-height: 1.75;
+    }
+    .word-doc h1 {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans",
+        "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      letter-spacing: -0.02em;
+    }
+    .word-doc .subtitle {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      font-size: 12px;
+      color: #475569;
+      margin: 0 0 18px 0;
+    }
+    .word-doc h2 {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      font-size: 16px;
+      font-weight: 800;
+      margin: 22px 0 10px 0;
+      letter-spacing: -0.01em;
+    }
+    .word-doc h3 {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      font-size: 13px;
+      font-weight: 800;
+      margin: 16px 0 6px 0;
+    }
+    .word-doc p {
+      margin: 0 0 10px 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .word-doc .rule {
+      height: 1px;
+      background: rgba(148, 163, 184, 0.55);
+      margin: 14px 0 18px 0;
+    }
+    .word-doc .event {
+      padding: 12px 0;
+      border-top: 1px solid rgba(148, 163, 184, 0.45);
+    }
+    .word-doc .event:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .word-doc .event-title {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      font-weight: 800;
+      font-size: 14px;
+      margin: 0 0 4px 0;
+    }
+    .word-doc .event-meta {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      font-size: 11px;
+      color: #64748b;
+      margin: 0 0 10px 0;
+    }
+    .word-doc table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 0 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      font-size: 12px;
+    }
+    .word-doc th,
+    .word-doc td {
+      border-top: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .word-doc thead th {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #475569;
+      font-weight: 800;
+      background: rgba(2, 132, 199, 0.06);
+      border-top: 1px solid rgba(148, 163, 184, 0.55);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="min-h-screen bg-slate-100">
+
+    <!-- Sticky top toolbar -->
+    <div data-print-hide class="sticky-topbar">
+      <div class="topbar-inner">
+        <div style="min-width:0;">
+          <div class="truncate topbar-title">Argus_Sulphur_ME_2026-01-29 (Structured report)</div>
+          <div class="truncate topbar-sub">Viewer mode (Word-like). Print for PDF.</div>
+        </div>
+
+        <button class="toolbar-btn" type="button" onclick="window.print()" title="Print">
+          🖨 Print
+        </button>
+      </div>
+    </div>
+
+    <!-- Paper -->
+    <div class="paper-wrap">
+      <!-- Error sample (hidden) -->
+      <div class="alert-err" style="display:none;">
+        Failed to load report.
+      </div>
+
+      <div class="paper">
+        <div class="paper-pad">
+          <div class="word-doc">
+            <h1>Argus Sulphur — Middle East Brief</h1>
+            <div class="subtitle">clean/argus_sulphur_me_2026-01-29.json • Structured report</div>
+            <div class="rule"></div>
+
+            <h2>Main theme</h2>
+            <p>
+              Firm tender demand and short-term supply disruptions are supporting pricing. Bid discipline remains critical
+              as regional availability tightens and buyers respond to logistics constraints.
+            </p>
+
+            <h2>Document summary</h2>
+
+            <h3>Market overview</h3>
+            <p>
+              Middle East spot indications remained firm this week. Participants reported limited prompt availability and
+              cautious bidding behavior following recent operational disruptions.
+            </p>
+
+            <h3>Pricing signals</h3>
+            <p>
+              Offers clustered in a tight band, suggesting market participants are anchoring near recent settlement
+              levels. Volatility remains moderate, with upside risk if supply stability weakens.
+            </p>
+
+            <h3>Implications for tender strategy</h3>
+            <p>
+              Maintain bids within the optimal band to balance win probability and margin. Avoid aggressive bids unless
+              supported by confirmed scarcity signals and alignment across multiple sources.
+            </p>
+
+            <h2>Key events</h2>
+
+            <div class="event">
+              <div class="event-title">Indonesia tender receives offers at $560–570/t CFR</div>
+              <div class="event-meta">Demand change • Bullish • 2026-01-29 • Score 0.78 • Regions: Indonesia, Middle East</div>
+              <p>
+                Tender activity indicates firm buying interest. Sellers are holding offers steady; market participants
+                expect limited downside in the short term.
+              </p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:22%;">Value</th>
+                    <th style="width:18%;">Unit</th>
+                    <th>Context</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>560–570</td>
+                    <td>USD/t</td>
+                    <td>Offers reported for CFR Indonesia tender</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="event">
+              <div class="event-title">Tengizchevroil resumes crude production after shutdown</div>
+              <div class="event-meta">Supply disruption • Neutral • 2026-01-26 • Score 0.82 • Regions: Kazakhstan, Central Asia</div>
+              <p>
+                Production resumed after a short shutdown. Sulphur capacity impact was temporary; monitor stability to
+                confirm normalized output.
+              </p>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:22%;">Value</th>
+                    <th style="width:18%;">Unit</th>
+                    <th>Context</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2.25</td>
+                    <td>mn t/yr</td>
+                    <td>Sulphur capacity mentioned in the report</td>
+                  </tr>
+                  <tr>
+                    <td>787,000</td>
+                    <td>b/d</td>
+                    <td>Average crude output (2025) referenced in context</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- No-structure note example (hidden) -->
+            <div style="display:none;">
+              <h2>Note</h2>
+              <p>
+                The report JSON did not match the expected structured schema (main theme / document summary / events).
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;text-align:center;font-size:11px;color:#64748b;">
+        Print to PDF from your browser (A4, margins set).
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
